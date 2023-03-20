@@ -4,9 +4,9 @@ export interface IAppProps {
 }
 
 export default function SinglePost(props: IAppProps) {
-    return (
-        <div>
+  return (
+    <div>
 
-        </div>
-    );
+    </div>
+  );
 }

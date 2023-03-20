@@ -1,12 +1,14 @@
 import * as React from 'react';
-
-export interface IAppProps {
+import { Layout } from '@/containers';
+export interface PostsProps {
 }
 
-export default function Posts(props: IAppProps) {
-    return (
-        <div>
-            Posts!
-        </div>
-    );
+export default function Posts(props: PostsProps) {
+  return (
+    <Layout>
+      <div>
+        Posts!
+      </div>
+    </Layout>
+  );
 }

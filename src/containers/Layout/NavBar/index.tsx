@@ -1,6 +1,7 @@
 import { Disclosure } from '@headlessui/react'
-import Image from 'next/image'
+import { useColorMode } from '@/store'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import Link from "next/link"
 import { Bars3Icon, BellIcon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/solid'
 const navigation = [
@@ -8,9 +9,13 @@ const navigation = [
   { name: 'Posts', href: '/posts', current: false },
   { name: 'Changelog', href: '/changelog', current: false },
 ]
-
-
 export interface NavBarProps {
+
+}
+
+interface ColorMode {
+  mode: string
+  switchMode: () => void
 }
 
 
@@ -18,14 +23,15 @@ function classNames(...classes: string[]) {
 
   return classes.filter(Boolean).join(' ')
 }
-const darkMode = true
+
+
 export default function NavBar(props: NavBarProps) {
 
   const { pathname } = useRouter()
-
+  const { mode: colorMode, switchMode }: ColorMode = useColorMode()
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800 border-b border-slate-600">
+      <Disclosure as="nav" className={`${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'} border-b border-slate-600`}>
         {({ open }) => (
           <>
             <div className="mx-auto max-w-5xl px-2 sm:px-6 lg:px-8">
@@ -44,8 +50,10 @@ export default function NavBar(props: NavBarProps) {
                 <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
                   <div className="flex flex-shrink-0 items-center">
                     {/* logo */}
-                    <Image src="/logo.png" alt="Eddy" width="200" height="64" />
-                    {/* <Image src="/logo-d.png" alt="Eddy" width="200" height="64" /> */}
+                    <Link href="/">
+                      {colorMode === 'dark' ? <Image src="/logo.png" alt="Eddy" width="200" height="64" /> :
+                        <Image src="/logo-d.png" alt="Eddy" width="200" height="64" />}
+                    </Link>
                   </div>
                   <div className="hidden sm:ml-6 md:flex items-center">
                     <div className="flex space-x-4">
@@ -67,10 +75,11 @@ export default function NavBar(props: NavBarProps) {
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <button
+                    onClick={() => switchMode()}
                     type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className={`${colorMode === 'dark' ? "hover:text-white text-gray-400" : "hover:text-gray-800 text-gray-600"} rounded-full p-1`}
                   >
-                    {darkMode ? <MoonIcon className="h-6 w-6" aria-hidden="true" /> : <SunIcon className="h-6 w-6" aria-hidden="true" />}
+                    {colorMode === "dark" ? <MoonIcon className="h-8 w-8" aria-hidden="true" /> : <SunIcon className="h-8 w-8" aria-hidden="true" />}
                   </button>
                 </div>
               </div>
@@ -82,7 +91,7 @@ export default function NavBar(props: NavBarProps) {
                     key={item.name}
                     href={item.href}
                     className={classNames(
-                      pathname === item.href ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      pathname === item.href ? 'bg-gray-900 text-white' : 'text-gray-500 hover:bg-gray-700 hover:text-white',
                       'block rounded-md px-3 py-2 text-base font-medium'
                     )}
                     aria-current={item.current ? 'page' : undefined}

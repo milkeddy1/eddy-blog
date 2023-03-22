@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Link from 'next/link';
-import { Instagram, Facebook, Github } from '@/assets/sgvs';
+import { Instagram, Facebook, Github } from '@/assets/svgs';
 export interface FooterProps {
   colorMode: string
 }

@@ -3,7 +3,7 @@ import { useColorMode } from '@/store'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from "next/link"
-import { Bars3Icon, BellIcon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/solid'
+import { Bars3Icon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/solid'
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Posts', href: '/posts', current: false },
@@ -31,10 +31,10 @@ export default function NavBar(props: NavBarProps) {
   const { mode: colorMode, switchMode }: ColorMode = useColorMode()
   return (
     <>
-      <Disclosure as="nav" className={`${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'} border-b border-slate-600`}>
+      <Disclosure as="nav" className="">
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-5xl px-2 sm:px-6 lg:px-8">
+            <div className="px-2 sm:px-6 lg:px-8 border-b border-slate-600">
               <div className="relative flex h-32 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                   {/* Mobile menu button*/}
@@ -62,7 +62,7 @@ export default function NavBar(props: NavBarProps) {
                           key={item.name}
                           href={item.href}
                           className={classNames(
-                            pathname === item.href ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            pathname === item.href ? 'bg-gray-900 text-white' : 'text-gray-500 hover:bg-gray-700 hover:text-white',
                             'rounded-md px-3 py-2 text-2xl font-medium'
                           )}
                           aria-current={item.current ? 'page' : undefined}

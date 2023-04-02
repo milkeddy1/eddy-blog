@@ -1,7 +1,5 @@
-import * as React from 'react';
-
 export interface GithubProps {
-  className: string
+  className: string;
 }
 
 const Github = (props: GithubProps) => (
@@ -17,6 +15,6 @@ const Github = (props: GithubProps) => (
       clipRule="evenodd"
     />
   </svg>
-)
+);
 
-export default Github
+export default Github;

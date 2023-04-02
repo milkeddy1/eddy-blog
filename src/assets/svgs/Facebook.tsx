@@ -1,7 +1,5 @@
-import * as React from 'react';
-
 export interface FacebookProps {
-  className: string
+  className: string;
 }
 
 const Facebook = (props: FacebookProps) => (
@@ -17,6 +15,6 @@ const Facebook = (props: FacebookProps) => (
       clipRule="evenodd"
     />
   </svg>
-)
+);
 
-export default Facebook
+export default Facebook;

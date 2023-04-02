@@ -9,7 +9,7 @@ export interface LayoutProps {
 export default function Layout(props: LayoutProps) {
   const { mode: colorMode }: { mode: string } = useColorMode()
   return (
-    <div className={`${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+    <div className={`min-h-[100vh] ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
       <div className='max-w-5xl mx-auto'>
         <NavBar />
         <div>

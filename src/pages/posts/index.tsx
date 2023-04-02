@@ -1,28 +1,61 @@
-import * as React from "react";
-import { Layout } from "@/containers";
+import fs from "fs"
+import matter from "gray-matter";
+import { v4 as uuidv4 } from "uuid"
 import { SinglePostList } from "@/components";
-export interface PostsProps {}
 
-const postData = Array.from(Array(10)).map((_, index) => {
-  return {
-    id: index + 1,
-    date: "2023/04/01",
-    time: "14:07",
-    title: "這是標題",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ullam laborum tenetur sed labore nihil dolorem nobis esse molestiaeexplicabo est, sint ex. Magni, et eaque! Quo, rerum cupiditate.Amet.",
-  };
-});
-console.log(postData, "postData");
+type SinglePostData = {
+  title: string,
+  date: string,
+  time: string,
+  content: string
+}
+
+type PostsType = {
+  id: string,
+  content: string,
+  slug: string
+  data: SinglePostData,
+}
+
+interface PostsProps {
+  allPostsData: Array<PostsType>
+}
 
 export default function Posts(props: PostsProps) {
+  const { allPostsData } = props
+  const postData = allPostsData.map((item) => {
+    return {
+      ...item,
+      id: uuidv4(),
+    }
+  })
+
   return (
-    <Layout>
-      <div className="w-full md:w-[80%] m-auto">
-        {postData.map((item, index) => {
-          return <SinglePostList key={index} data={item} />;
-        })}
-      </div>
-    </Layout>
+    <div className="w-full md:w-[80%] m-auto">
+      {postData.map((item) => {
+        return <SinglePostList key={item.id} data={item} />;
+      })}
+    </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const files = fs.readdirSync("src/posts");
+  const allPostsData = files.map((fileName) => {
+    const slug = fileName.replace(".mdx", "")
+    const fileContents = fs.readFileSync(`src/posts/${slug}.mdx`, "utf8")
+    const { data, content } = matter(fileContents);
+
+    return {
+      slug,
+      data,
+      content
+    }
+  })
+  return { props: { allPostsData } }
+}
+
+
+
+
+

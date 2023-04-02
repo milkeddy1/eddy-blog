@@ -1,15 +1,22 @@
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+import Link from "next/link";
+import { MDXRemote } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
 import { ThumbsUp } from "@/assets/svgs";
 import { useColorMode } from "@/store";
 import useLocalStorage from "@/hook/useLocalStorage";
-import clsx from "clsx";
-import Link from "next/link";
 
 type Data = {
-  id: Number;
-  date: String;
-  time: String;
-  title: String;
-  content: String;
+  id: string,
+  content: string,
+  slug: string,
+  data: {
+    date: String;
+    time: String;
+    title: String;
+    content: String;
+  }
 };
 
 type Props = {
@@ -17,38 +24,46 @@ type Props = {
 };
 
 export default function SinglePostList({ data }: Props) {
-  const { id, date, time, title, content } = data;
+  const { id, content, data: detail, slug } = data
+
+  const { date, title } = detail;
   const { mode } = useColorMode();
   const isDarkColor = mode === "dark";
   const [thumbsUp, setThumbsUp] = useLocalStorage(`post${id}_liked_eddy_blog`);
+  const [mdxContent, setMdxContent] = useState({})
+
+  useEffect(() => {
+    serialize(content, {
+      mdxOptions: {
+        development: process.env.NODE_ENV === 'development'
+      }
+    }).then(res => setMdxContent(res))
+  }, [content])
 
   return (
     <>
       <div className="flex flex-col md:flex-row items-center">
         <Link
-          href={`/posts/${id}`}
-          className={`${
-            isDarkColor
-              ? "text-white hover:bg-gray-700"
-              : "text-black hover:bg-gray-400"
-          } m-4 p-8 hover:bg-gray-700 rounded-3xl`}
+          href={`/posts/${slug}`}
+          className={`${isDarkColor
+            ? "text-white hover:bg-gray-500"
+            : "text-black hover:bg-gray-400"
+            } m-4 p-8  rounded-3xl grow`}
         >
           {/* title and time */}
-          <div className="block md:flex items-end w-full md:w-[80%] lg:w-[60%]">
-            <h2 className="mr-12 text-3xl md:text-5xl">{title}</h2>
+          <div className="block md:flex items-end justify-between w-full md:w-[80%]">
+            <h2 className="mr-12 text-3xl md:text-3xl">{title}</h2>
             <div
-              className={`${
-                isDarkColor ? "text-[#ADADAD]" : "text-[#7B7B7B]"
-              } flex gap-2`}
+              className={`${isDarkColor ? "text-[#ADADAD]" : "text-[#7B7B7B]"
+                } flex gap-2`}
             >
               <p>{date}</p>
-              <p>{time}</p>
             </div>
           </div>
           <hr className="w-[80%]" />
           {/* content */}
-          <div className="mt-5 flex items-center">
-            <p className="">{content}</p>
+          <div className={`${isDarkColor ? 'prose-dark' : 'prose-light'} mt-5 items-center prose line-clamp-3`}>
+            {Object.keys(mdxContent).length && <MDXRemote compiledSource={""} scope={undefined} frontmatter={undefined} {...mdxContent} />}
           </div>
         </Link>
         <button
@@ -74,7 +89,7 @@ export default function SinglePostList({ data }: Props) {
             )}
           />
         </button>
-      </div>
+      </div >
     </>
   );
 }

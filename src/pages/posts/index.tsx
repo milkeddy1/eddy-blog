@@ -44,14 +44,14 @@ export const getServerSideProps = async () => {
   const files = fs.readdirSync(
     process.env.NODE_ENV === "development"
       ? "src/pages/posts/markdowns"
-      : path.resolve(__dirname, "posts/markdowns")
+      : path.resolve(__dirname, "../../../posts/markdowns")
   );
   const allPostsData = files.map((fileName) => {
     const slug = fileName.replace(".mdx", "");
     const fileContents = fs.readFileSync(
       process.env.NODE_ENV === "development"
         ? `src/pages/posts/markdowns/${slug}.mdx`
-        : path.resolve(__dirname, `posts/markdowns/${slug}.mdx`)
+        : path.resolve(__dirname, `../../../posts/markdowns/${slug}.mdx`)
     );
     const { data, content } = matter(fileContents);
 

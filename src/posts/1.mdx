@@ -43,8 +43,110 @@ bc9c434 refactor: posts ordering
 
 這邊就可以看到，原本的`69ea03d`已經不見了，取而代之的是`3a4e223`
 
-但是這邊有一個情況
+那如果是我想要更改更之前的 commit name 呢？
+
+分為幾個步驟
+
+1. 找到我要改的 commit id
+
+```
+git log --oneline
+
+708df70 (HEAD -> main) feat: first post
+3a4e223 build: add some custom styles
+f0984db fix: enable husky
+bc9c434 refactor: posts ordering
+```
+
+2. 假設我要改的是`f0984db`這個 commit message，我要找到該 commit 的上一個 commit id，以這個情況為例就是`bc9c434`
+
+然後下該指令 （要注意下此指令前要先把 git 的 stage 和 change 清空）
+
+```
+git rebase -i bc9c434
+```
+
+3. 此時會進入 vim 長這樣
+
+```
+pick f0984db fix: enable husky
+pick 3a4e223 build: add some custom styles
+pick 708df70 feat: first post
+
+# Rebase bc9c434..708df70 onto bc9c434 (3 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup <commit> = like "squash", but discard this commit's log message
+# x, exec <command> = run command (the rest of the line) using shell
+# b, break = stop here (continue rebase later with 'git rebase --continue')
+# d, drop <commit> = remove commit
+# l, label <label> = label current HEAD with a name
+# t, reset <label> = reset HEAD to a label
+# m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+# .       create a merge commit using the original merge commit's
+# .       message (or the oneline, if no original merge commit was
+# .       specified). Use -c <commit> to reword the commit message.
+#
+```
+
+但別慌張，我們要注意的只有這個部分
+
+```
+pick f0984db fix: enable husky
+pick 3a4e223 build: add some custom styles
+pick 708df70 feat: first post
+```
+
+將我們要改的 commit 前面 pick 改為 r 然後 esc => : => wq 儲存並退出 vim
+
+```
+r f0984db fix: enable husky
+pick 3a4e223 build: add some custom styles
+pick 708df70 feat: first post
+```
+
+4. 修改你要的 commit message
+
+此時會進入另一個 vim
+
+```
+fix: enable husky
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Mon Apr 3 14:12:18 2023 +0800
+#
+# interactive rebase in progress; onto bc9c434
+# Last command done (1 command done):
+#    reword f0984db fix: enable husky
+# Next commands to do (2 remaining commands):
+#    pick 3a4e223 build: add some custom styles
+#    pick 708df70 feat: first post
+# You are currently editing a commit while rebasing branch 'main' on 'bc9c434'.
+#
+# Changes to be committed:
+#       modified:   .husky/commit-msg
+#       modified:   .husky/pre-commit
+#
+```
+
+將 fix: enable husky -> 改為你要的 message 後一樣 esc => : => wq 儲存並離開 vim 就完成了。
+
+!! 但是這邊有一個情況
+
+如果 commit message 是已經被 push 過了，你更改完再 push 會出現以下 error
 
 ```
  ! [rejected]        main -> main (non-fast-forward)
+```
+
+此時只要在 push 加上-f 參數即可
+
+```
+git push -f
 ```

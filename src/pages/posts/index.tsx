@@ -41,18 +41,10 @@ export default function Posts(props: PostsProps) {
 }
 
 export const getServerSideProps = async () => {
-  const files = fs.readdirSync(
-    process.env.NODE_ENV === "development"
-      ? "src/pages/posts/markdowns"
-      : path.resolve(__dirname, "../../../posts/markdowns")
-  );
+  const files = fs.readdirSync("src/posts");
   const allPostsData = files.map((fileName) => {
     const slug = fileName.replace(".mdx", "");
-    const fileContents = fs.readFileSync(
-      process.env.NODE_ENV === "development"
-        ? `src/pages/posts/markdowns/${slug}.mdx`
-        : path.resolve(__dirname, `../../../posts/markdowns/${slug}.mdx`)
-    );
+    const fileContents = fs.readFileSync(`src/posts/${slug}.mdx`);
     const { data, content } = matter(fileContents);
 
     return {

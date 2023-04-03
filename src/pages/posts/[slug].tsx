@@ -58,9 +58,8 @@ export default function SinglePost(props: PostsProps) {
       <br />
       <br />
       <div
-        className={`${
-          isDarkColor ? "prose-dark" : "prose-light"
-        } prose flex flex-col md:flex-row  justify-between m-auto`}
+        className={`${isDarkColor ? "prose-dark" : "prose-light"
+          } prose flex flex-col md:flex-row  justify-between m-auto`}
       >
         <h1 className="text-5xl">{title}</h1>
         <p>{date}</p>
@@ -68,9 +67,8 @@ export default function SinglePost(props: PostsProps) {
       <br />
       <br />
       <div
-        className={`${
-          isDarkColor ? "prose-dark" : "prose-light"
-        } mt-5 items-center prose m-auto all-initial`}
+        className={`${isDarkColor ? "prose-dark" : "prose-light"
+          } mt-5 items-center prose m-auto all-initial`}
       >
         {Object.keys(mdxContent).length && (
           <MDXRemote
@@ -86,21 +84,13 @@ export default function SinglePost(props: PostsProps) {
 }
 
 export const getServerSideProps = async () => {
-  const files = fs.readdirSync(
-    process.env.NODE_ENV === "development"
-      ? "src/pages/posts/markdowns"
-      : path.resolve(__dirname, "posts/markdowns")
-  );
+  const files = fs.readdirSync("src/posts");
+
   const allPostsData = files.map((fileName) => {
     const slug = fileName.replace(".mdx", "");
-    const fileContents = fs.readFileSync(
-      process.env.NODE_ENV === "development"
-        ? `src/pages/posts/markdowns/${slug}.mdx`
-        : path.resolve(__dirname, "posts/markdowns"),
-      "utf8"
-    );
+    const fileContents = fs.readFileSync(`src/posts/${slug}.mdx`);
+
     const { data, content } = matter(fileContents);
-    // const mdxSource =  serialize(content);
 
     return {
       slug,

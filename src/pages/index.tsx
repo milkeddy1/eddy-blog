@@ -17,8 +17,9 @@ export default function Home() {
           />
         </div>
         <div
-          className={`${isDarkMode ? "text-white" : "text-black"
-            } w-[70vw] m-auto mb-8`}
+          className={`${
+            isDarkMode ? "text-white" : "text-black"
+          } w-[70vw] m-auto mb-8`}
         >
           <h1 className="text-6xl  font-bold">
             Hi,

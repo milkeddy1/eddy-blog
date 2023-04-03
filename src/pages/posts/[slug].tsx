@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useColorMode } from "@/store";
 import Link from "next/link";
 import fs from "fs";
+import path from "path";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
@@ -39,7 +40,6 @@ export default function SinglePost(props: PostsProps) {
 
   const { mode } = useColorMode();
   const isDarkColor = mode === "dark";
-  console.log(singlePostData, "singlePostData");
 
   useEffect(() => {
     serialize(content, {
@@ -86,10 +86,19 @@ export default function SinglePost(props: PostsProps) {
 }
 
 export const getServerSideProps = async () => {
-  const files = fs.readdirSync("src/posts");
+  const files = fs.readdirSync(
+    process.env.NODE_ENV === "development"
+      ? "src/pages/posts/markdowns"
+      : path.resolve(__dirname, "posts/markdowns")
+  );
   const allPostsData = files.map((fileName) => {
     const slug = fileName.replace(".mdx", "");
-    const fileContents = fs.readFileSync(`src/posts/${slug}.mdx`, "utf8");
+    const fileContents = fs.readFileSync(
+      process.env.NODE_ENV === "development"
+        ? `src/pages/posts/markdowns/${slug}.mdx`
+        : path.resolve(__dirname, "posts/markdowns"),
+      "utf8"
+    );
     const { data, content } = matter(fileContents);
     // const mdxSource =  serialize(content);
 

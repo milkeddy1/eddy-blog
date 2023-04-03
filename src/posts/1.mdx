@@ -1,16 +1,50 @@
 ---
-title: '第一篇部落格文章'
-date: '2023/04/02'
-time: '17:52'
+title: "[Git] 如何更改已push的commit message ?"
+date: "2023/04/03"
+# time: "17:52"
 # content: '如何使用Nextjs讀mockdown file'
 ---
 
-# The post page
+# 更改前一個 commit message
 
+以更改「前一個」commit message 來說比較簡單
 
-This is the final step in the project when we will display the posts. In Next.js, to add a page with parameter in its path, you should name it between brackets. In our example, we will add [slug].js in the pages directory.
+可以直接用 `--amend` 參數
 
-We need to handle things in this page:
+```
+git commit --amend -m "message you want to apply..."
+```
 
-🔗getStaticPaths:
-We need this function in Next.js to tell it how many pages should be build in the build time from this page.
+但是必須要注意的事情是，他會成為一個新的 commit log
+
+這邊做個範例
+
+```
+git commit log --oneline
+```
+
+```
+69ea03d (HEAD -> main) chore: add some custom stlyes
+f0984db fix: enable husky
+bc9c434 refactor: posts ordering
+25b8dca (origin/main, origin/HEAD) feat: changelog layout
+```
+
+```
+git commit --amend -m "build: add some custom styles"
+```
+
+```
+3a4e223 (HEAD -> main) build: add some custom styles
+f0984db fix: enable husky
+bc9c434 refactor: posts ordering
+25b8dca feat: changelog layout
+```
+
+這邊就可以看到，原本的`69ea03d`已經不見了，取而代之的是`3a4e223`
+
+但是這邊有一個情況
+
+```
+ ! [rejected]        main -> main (non-fast-forward)
+```

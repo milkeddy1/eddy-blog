@@ -43,6 +43,7 @@ module.exports = {
             },
             pre: {
               code: {
+                padding: "0",
                 color: "#71717a",
               },
             },

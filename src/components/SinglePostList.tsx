@@ -30,14 +30,14 @@ export default function SinglePostList({ data }: Props) {
   const { mode } = useColorMode();
   const isDarkColor = mode === "dark";
   const [thumbsUp, setThumbsUp] = useLocalStorage(`post${id}_liked_eddy_blog`);
-  const [mdxContent, setMdxContent] = useState({})
+  const [mdContent, setMdContent] = useState({})
 
   useEffect(() => {
     serialize(content, {
       mdxOptions: {
-        development: process.env.NODE_ENV === 'development'
+        development: process.env.NODE_ENV === 'development',
       }
-    }).then(res => setMdxContent(res))
+    }).then(res => setMdContent(res))
   }, [content])
 
   return (
@@ -63,7 +63,7 @@ export default function SinglePostList({ data }: Props) {
           <hr className="w-[80%]" />
           {/* content */}
           <div className={`${isDarkColor ? 'prose-dark' : 'prose-light'} mt-5 items-center prose line-clamp-3`}>
-            {Object.keys(mdxContent).length && <MDXRemote compiledSource={""} scope={undefined} frontmatter={undefined} {...mdxContent} />}
+            {Object.keys(mdContent).length && <MDXRemote compiledSource={""} scope={undefined} frontmatter={undefined} {...mdContent} />}
           </div>
         </Link>
         <button

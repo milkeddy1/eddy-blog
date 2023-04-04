@@ -87,8 +87,8 @@ export const getServerSideProps = async () => {
   const files = fs.readdirSync(path.resolve(process.cwd(), "src/posts"));
 
   const allPostsData = files.map((fileName) => {
-    const slug = fileName.replace(".mdx", "");
-    const fileContents = fs.readFileSync(path.resolve(process.cwd(), `src/posts/${slug}.mdx`));
+    const slug = fileName.replace(".md", "");
+    const fileContents = fs.readFileSync(path.resolve(process.cwd(), `src/posts/${slug}.md`));
 
     const { data, content } = matter(fileContents);
 

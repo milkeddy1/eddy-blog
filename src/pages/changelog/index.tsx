@@ -18,7 +18,7 @@ export default function Changelog(props: ChangelogProps) {
                 <h2 className='text-2xl font-bold'>{title}</h2>
                 <p className='text-black'>{description}</p>
                 <br />
-                {img && <Image src={img} alt={title} />}
+                {img && <Image src={img} alt={title} width={300} height={300} />}
                 {link && <a className='text-black underline hover:text-[#525252]' href={link} target="_blank">連結</a>}
               </div>
             </VerticalTimelineElement>

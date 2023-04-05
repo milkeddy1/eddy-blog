@@ -1,10 +1,10 @@
-import arizona from "@/assets/changelogs/arizona.jpg"
-import guitar from "@/assets/changelogs/guitar.jpg"
-import graduate from "@/assets/changelogs/graduate.jpg"
-import military from "@/assets/changelogs/military.jpg"
-import project_1 from "@/assets/changelogs/project-1.PNG"
-import project_2 from "@/assets/changelogs/project-2.PNG"
-import project_3 from "@/assets/changelogs/project-3.PNG"
+// import arizona from "/changelogs/arizona.jpg"
+// import guitar from "/changelogs/guitar.jpg"
+// import graduate from "/changelogs/graduate.jpg"
+// import military from "/changelogs/military.jpg"
+// import project_1 from "/changelogs/project-1.PNG"
+// import project_2 from "/changelogs/project-2.PNG"
+// import project_3 from "/changelogs/project-3.PNG"
 
 
 const changelogConfig = [
@@ -12,7 +12,7 @@ const changelogConfig = [
     date: '2013-2014年',
     title: 'Exchange student in Arizona',
     description: '一種全新的體驗，接觸不同的文化，給了我更不一樣的視野。',
-    img: arizona
+    img: '/changelogs/arizona.jpg'
   },
   {
     date: '2016年',
@@ -23,19 +23,19 @@ const changelogConfig = [
     date: '2016 - 2018',
     title: '吉他社生活',
     description: '很喜歡唱歌彈吉他，在大學也選擇了吉他社並積極參與表演。',
-    img: guitar
+    img: '/changelogs/guitar.jpg'
   },
   {
     date: '2020/6',
     title: '從虎尾科科技大學畢業',
     description: '對於飛機工程領域，心裡知道不是自己喜歡的東西，僅僅是拿到文憑為目標。',
-    img: graduate
+    img: '/changelogs/graduate.jpg'
   },
   {
     date: '2020/7 - 2020/11',
     title: '當兵',
     description: '花了不少時間去思考人生，也在這期間看了不少書，最大的收穫是交了不少好朋友。',
-    img: military
+    img: '/changelogs/military.jpg'
   },
   {
     date: '2021/2',
@@ -51,7 +51,7 @@ const changelogConfig = [
     date: '2021/6 - 2021/7',
     title: '網頁前端工程師實戰班 - 作品',
     description: '在課程中學習最多的東西就是切版能力，該作品是將一個舊式網站的素材蒐集起來，改造成一個比較新型版型的網站，可以看到內容相對粗糙XD',
-    img: project_1,
+    img: '/changelogs/project-1.PNG',
     link: 'https://adoring-newton-776ac0.netlify.app/?fbclid=IwAR39ciuRe0bRlVLSqCxtaKEoKeiRmcTbMIYr5qCbHKWcMVqCpPzdgn3_H_Y'
   },
   {
@@ -68,14 +68,14 @@ const changelogConfig = [
     date: '2021/1',
     title: 'React基本作品 - todolist',
     description: '基於一些基本的React知識，做出一個非常簡易的todolist。',
-    img: project_2,
+    img: '/changelogs/project-2.PNG',
     link: 'https://elegant-beaver-e6642f.netlify.app/'
   },
   {
     date: '2021/1',
     title: 'React基本作品 - 串接API',
     description: '本身常常觀看twitch這個頻台的直播，因此嘗試串閱讀twitch dev docs並串接實況主的資訊。',
-    img: project_3,
+    img: '/changelogs/project-3.PNG',
     link: 'https://dreamy-leavitt-9706f4.netlify.app/'
   }
 ]

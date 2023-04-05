@@ -1,7 +1,7 @@
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import Image from "next/image"
 import 'react-vertical-timeline-component/style.min.css';
-import changelogConfig from "./changelogConfig"
+import changelogConfig from "../../utils/changelogs"
 export interface ChangelogProps {
 }
 
@@ -25,6 +25,7 @@ export default function Changelog(props: ChangelogProps) {
           })}
         </div>
       </VerticalTimeline>
+
     </div >
   );
 }

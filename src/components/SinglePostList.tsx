@@ -24,12 +24,12 @@ type Props = {
 };
 
 export default function SinglePostList({ data }: Props) {
-  const { id, content, data: detail, slug } = data
+  const { content, data: detail, slug } = data
 
   const { date, title } = detail;
   const { mode } = useColorMode();
   const isDarkColor = mode === "dark";
-  const [thumbsUp, setThumbsUp] = useLocalStorage(`post${id}_liked_eddy_blog`);
+  const [thumbsUp, setThumbsUp] = useLocalStorage(`post${slug}_liked_eddy_blog`);
   const [mdContent, setMdContent] = useState({})
 
   useEffect(() => {
@@ -39,6 +39,7 @@ export default function SinglePostList({ data }: Props) {
       }
     }).then(res => setMdContent(res))
   }, [content])
+  console.log(isDarkColor, "isDarkColor");
 
   return (
     <>
@@ -82,9 +83,8 @@ export default function SinglePostList({ data }: Props) {
               {
                 "hover:fill-white text-white": isDarkColor,
                 "hover:fill-black text-black": !isDarkColor,
+                "fill-[#1f2937]": thumbsUp?.toString() === "true" && !isDarkColor,
                 "fill-white": thumbsUp?.toString() === "true" && isDarkColor,
-                "fill-[#000000]":
-                  thumbsUp?.toString() === "true" && !isDarkColor,
               }
             )}
           />

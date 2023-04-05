@@ -23,6 +23,8 @@ interface PostsProps {
 }
 
 export default function Posts(props: PostsProps) {
+
+
   const { allPostsData } = props;
   const postData = allPostsData.map((item) => {
     return {
@@ -52,7 +54,12 @@ export const getServerSideProps = async () => {
       slug,
       data,
       content,
+
     };
   });
-  return { props: { allPostsData } };
+  return {
+    props: {
+      allPostsData
+    }
+  };
 };

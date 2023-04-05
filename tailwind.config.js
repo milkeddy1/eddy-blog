@@ -44,7 +44,7 @@ module.exports = {
             pre: {
               code: {
                 padding: "0",
-                color: "#71717a",
+                color: "#4e4e54",
               },
             },
           },
@@ -67,6 +67,23 @@ module.exports = {
             "--tw-prose-pre-bg": theme("colors.gray[800]"),
             "--tw-prose-th-borders": theme("colors.gray[800]"),
             "--tw-prose-td-borders": theme("colors.gray[800]"),
+            code: {
+              color: "#f87171",
+              borderRadius: "5px",
+              padding: ".25rem .5rem",
+            },
+            "code::before": {
+              display: "none",
+            },
+            "code::after": {
+              display: "none",
+            },
+            pre: {
+              code: {
+                padding: "0",
+                color: "white",
+              },
+            },
           },
         },
       }),

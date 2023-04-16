@@ -34,7 +34,7 @@ export default function Posts(props: PostsProps) {
   });
 
   return (
-    <div className="w-full md:w-[80%] m-auto flex flex-col-reverse">
+    <div className="w-full  m-auto flex flex-col-reverse">
       {postData.map((item) => {
         return <SinglePostList key={item.id} data={item} />;
       })}

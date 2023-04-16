@@ -59,7 +59,7 @@ export default function SinglePost(props: PostsProps) {
       <br />
       <div
         className={`${isDarkColor ? "prose-dark" : "prose-light"
-          } prose flex flex-col md:flex-row  justify-between m-auto`}
+          } prose flex flex-col justify-between m-auto`}
       >
         <h1 className="text-5xl">{title}</h1>
         <p>{date}</p>

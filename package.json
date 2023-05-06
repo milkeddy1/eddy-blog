@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-commit": "yarn lint-staged"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
@@ -43,6 +44,7 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-tailwindcss": "^3.11.0",
     "eslint-plugin-testing-library": "^5.10.3",
+    "lint-staged": "^13.2.2",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7"
   }

@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 type LocalStorageValue = string | boolean | null;
 
 export default function useLocalStorage(
-  key: string
+  key: string,
+// eslint-disable-next-line no-unused-vars
 ): [LocalStorageValue, (v: string) => void] {
   const [value, setValue] = useState<LocalStorageValue>(null);
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const storageValue = localStorage.getItem(key) || null;
       setValue(storageValue);
     }

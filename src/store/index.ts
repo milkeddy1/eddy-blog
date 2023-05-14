@@ -1,1 +1,2 @@
-export { default as useColorMode } from "./useColorMode"
+// eslint-disable-next-line import/prefer-default-export
+export { default as useColorMode } from './useColorMode'

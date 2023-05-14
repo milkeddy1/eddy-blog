@@ -1,8 +1,8 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { v4 as uuidv4 } from "uuid";
-import { SinglePostList } from "@/components";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { v4 as uuidv4 } from 'uuid';
+import { SinglePostList } from '@/components';
 
 type SinglePostData = {
   title: string;
@@ -23,29 +23,23 @@ interface PostsProps {
 }
 
 export default function Posts(props: PostsProps) {
-
-
   const { allPostsData } = props;
-  const postData = allPostsData.map((item) => {
-    return {
-      ...item,
-      id: uuidv4(),
-    };
-  });
+  const postData = allPostsData.map((item) => ({
+    ...item,
+    id: uuidv4(),
+  }));
 
   return (
-    <div className="w-full  m-auto flex flex-col-reverse">
-      {postData.map((item) => {
-        return <SinglePostList key={item.id} data={item} />;
-      })}
+    <div className="m-auto  flex w-full flex-col-reverse">
+      {postData.map((item) => <SinglePostList key={item.id} data={item} />)}
     </div>
   );
 }
 
 export const getServerSideProps = async () => {
-  const files = fs.readdirSync(path.resolve(process.cwd(), "src/posts"));
+  const files = fs.readdirSync(path.resolve(process.cwd(), 'src/posts'));
   const allPostsData = files.map((fileName) => {
-    const slug = fileName.replace(".md", "");
+    const slug = fileName.replace('.md', '');
     const fileContents = fs.readFileSync(path.resolve(process.cwd(), `src/posts/${slug}.md`));
     const { data, content } = matter(fileContents);
 
@@ -59,7 +53,7 @@ export const getServerSideProps = async () => {
   });
   return {
     props: {
-      allPostsData
-    }
+      allPostsData,
+    },
   };
 };
